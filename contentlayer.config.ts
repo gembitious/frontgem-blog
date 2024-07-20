@@ -7,6 +7,7 @@ import { fromHtmlIsomorphic } from 'hast-util-from-html-isomorphic'
 // Remark packages
 import remarkGfm from 'remark-gfm'
 import remarkMath from 'remark-math'
+import { remarkAlert } from 'remark-github-blockquote-alert'
 import {
   remarkExtractFrontmatter,
   remarkCodeTitles,
@@ -82,7 +83,7 @@ function createSearchIndex(allBlogs) {
     siteMetadata.search.kbarConfig.searchDocumentsPath
   ) {
     writeFileSync(
-      `public/${siteMetadata.search.kbarConfig.searchDocumentsPath}`,
+      `public/${path.basename(siteMetadata.search.kbarConfig.searchDocumentsPath)}`,
       JSON.stringify(allCoreContent(sortPosts(allBlogs)))
     )
     console.log('Local search index generated...')
@@ -153,6 +154,7 @@ export default makeSource({
       remarkCodeTitles,
       remarkMath,
       remarkImgToJsx,
+      remarkAlert,
     ],
     rehypePlugins: [
       rehypeSlug,
